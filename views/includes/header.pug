@@ -1,0 +1,14 @@
+header
+    .container.header
+        .gameMod
+            .check
+        #nav
+            .burger_menu
+                .burger_menu-line
+                .burger_menu-line
+                .burger_menu-line
+            //- ul.navigation
+                - var nav = SITE.nav
+                each link in nav 
+                    li.navigation-item
+                        a.navigation-link(href=link.href)  !{link.text}
