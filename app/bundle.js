@@ -1,2 +1,5 @@
-const menu = require("./scripts/menu");
+const menu = require('./scripts/menu')
 
+window.addEventListener('load', () => {
+  menu()
+})
