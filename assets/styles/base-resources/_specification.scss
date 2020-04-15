@@ -7,9 +7,6 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // &:focus {
-  //   outline: none;
-  // }
 }
 
 h1,
@@ -49,11 +46,18 @@ body {
   justify-content: space-between;
   min-height: 100vh;
   overflow-x: hidden;
+  font-family: 'Comic Neue', cursive;
 }
 
 .container {
-  max-width: 1024px;
+  max-width: 1150px;
   margin: 0 auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.wrapper {
+  width: 100%;
 }
