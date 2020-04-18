@@ -50,11 +50,11 @@ body {
 }
 
 .container {
-  max-width: 1150px;
+  max-width: 1250px;
   margin: 0 auto;
   padding: 0 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
