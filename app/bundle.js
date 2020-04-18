@@ -1,56 +1,69 @@
 const menu = require('./scripts/menu')
 const cards = require('./scripts/cards')
 const createCards = require('./scripts/createCards')
+const clickCard = require('./scripts/clickCard')
 
 window.addEventListener('load', () => {
   menu()
   createCards(cards)
 })
 
-let clickNav = ''
-const navID = {
-  main: 0,
-  actionA: 1,
-  actionB: 2,
-  animalA: 3,
-  animalB: 4,
-  clothes: 5,
-  emotions: 6,
-  food: 7,
-  fruits: 8,
-}
-
+// create cards and click main card
 document.addEventListener('click', (e) => {
   if (e.target.tagName === 'A' || e.target.tagName === 'NAV') {
-    clickNav = e.srcElement.hash.substring(1)
-    // const pagesCards = document.querySelectorAll('.mainCards')
-    const createImages = document.querySelectorAll('.mainCards img')
-    const cardText = document.querySelectorAll('.mainCards p')
-    for (const key in navID) {
-      if (clickNav === key) {
-        const pageTitle = document.querySelector('.main-title')
-        pageTitle.innerHTML = cards.default[0][navID[clickNav] - 1].word
-        for (let i = 0; i < cards.default[navID[clickNav]].length; i += 1) {
-          createImages[i].classList.remove('main-card-pic')
-          createImages[i].classList.add('card-pic')
-          createImages[i].src = cards.default[navID[key]][i].image
-          cardText[i].innerText = cards.default[navID[key]][i].word
-        }
-      }
-    }
+    const clickNav = e.srcElement.hash.substring(1)
+    clickCard(e, clickNav)
+  }
+  if (document.querySelector('#main-title').textContent === 'Main page') {
+  // if (document.querySelector('#main-title').textContent === 'Main page') {
+    const clickElem = e.srcElement.text
+    clickCard(e, clickElem)
+    // const btn = document.querySelectorAll('.reverse')
+    // btn.forEach(button => {
+    //   button.classList.remove('reverse')
+    // })
+    
   }
 }, true)
 
 
+document.body.addEventListener('click', (event) => {
+  const parent = event.target.offsetParent
+  if (event.target.classList.contains('reverse')) {
+    parent.classList.add('flip-card')
+    parent.childNodes[1].classList.add('flip-card')
+    parent.childNodes[2].classList.add('flip-card')
+    parent.childNodes[1].innerHTML = parent.childNodes[1].dataset.translate
+  }
+  parent.addEventListener('mouseout', () => {
+    if (parent.classList.contains('flip-card')) {
+      parent.classList.remove('flip-card')
+      parent.childNodes[1].classList.remove('flip-card')
+      parent.childNodes[2].classList.remove('flip-card')
+      parent.childNodes[1].innerHTML = parent.childNodes[1].dataset.word
+    }
+  })
+  // if (event.target.classList.contains('mainCards')) {
+  //   // event.target.play()
+  //   console.log(777)
+  // }
+})
+
+
 // Change train on play
 const trainPlayButton = document.querySelector('.check')
+
 trainPlayButton.onclick = () => {
   const cardColor = document.querySelectorAll('.mainCards')
   cardColor.forEach((e) => {
     if (e.classList.contains('cardsBG-train')) {
+      document.querySelector('.swichOn').style.opacity = 0
+      document.querySelector('.swichOff').style.opacity = 1
       e.classList.remove('cardsBG-train')
       e.classList.add('cardsBG-play')
     } else {
+      document.querySelector('.swichOn').style.opacity = 1
+      document.querySelector('.swichOff').style.opacity = 0
       e.classList.remove('cardsBG-play')
       e.classList.add('cardsBG-train')
     }
